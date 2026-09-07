@@ -1,0 +1,155 @@
+{
+  "generated_at": "2026-09-07T23:41:38.103617",
+  "scripts": [
+    {
+      "type": "A_pain",
+      "hook": "You've been doing this wrong.",
+      "scenes": [
+        {
+          "num": 1,
+          "seconds": 5,
+          "visual": "Stressed trader, multiple browser tabs open",
+          "voiceover": "You've been doing this the hard way.",
+          "text_on_screen": null
+        },
+        {
+          "num": 2,
+          "seconds": 8,
+          "visual": "Split screen: 50 tabs vs clean CWT dashboard",
+          "voiceover": "Hours of YouTube. Conflicting gurus. Still no plan.",
+          "text_on_screen": "Sound familiar?"
+        },
+        {
+          "num": 3,
+          "seconds": 7,
+          "visual": "Animated counter: 16,564 trader profile icons appear",
+          "voiceover": "16,564 professional traders already did the research for you.",
+          "text_on_screen": "16,564 Pro Traders"
+        },
+        {
+          "num": 4,
+          "seconds": 6,
+          "visual": "Trade card: AAPL \u2014 Entry $142, Stop $139, Target $151",
+          "voiceover": "Clear entry, stop, and target. Every week. No guessing.",
+          "text_on_screen": "Entry \u00b7 Stop \u00b7 Target"
+        },
+        {
+          "num": 5,
+          "seconds": 7,
+          "visual": "74.1% badge animates in with green checkmarks",
+          "voiceover": "74.1% win rate. Tracked. Public. Verifiable.",
+          "text_on_screen": "74.1% Win Rate"
+        },
+        {
+          "num": 6,
+          "seconds": 7,
+          "visual": "Person relaxing, phone shows CWT notification, smiling",
+          "voiceover": "Start free. 20 predictions. No credit card.",
+          "text_on_screen": "Start Free \u2192 crowdwisdomtrading.com"
+        }
+      ],
+      "cta": "Get 20 Free Predictions",
+      "why_it_works": "Mirrors the viewer's frustration then delivers relief."
+    },
+    {
+      "type": "B_social_proof",
+      "hook": "16,564 traders can't be wrong.",
+      "scenes": [
+        {
+          "num": 1,
+          "seconds": 5,
+          "visual": "Stressed trader, multiple browser tabs open",
+          "voiceover": "You've been doing this the hard way.",
+          "text_on_screen": null
+        },
+        {
+          "num": 2,
+          "seconds": 8,
+          "visual": "Split screen: 50 tabs vs clean CWT dashboard",
+          "voiceover": "Hours of YouTube. Conflicting gurus. Still no plan.",
+          "text_on_screen": "Sound familiar?"
+        },
+        {
+          "num": 3,
+          "seconds": 7,
+          "visual": "Animated counter: 16,564 trader profile icons appear",
+          "voiceover": "16,564 professional traders already did the research for you.",
+          "text_on_screen": "16,564 Pro Traders"
+        },
+        {
+          "num": 4,
+          "seconds": 6,
+          "visual": "Trade card: AAPL \u2014 Entry $142, Stop $139, Target $151",
+          "voiceover": "Clear entry, stop, and target. Every week. No guessing.",
+          "text_on_screen": "Entry \u00b7 Stop \u00b7 Target"
+        },
+        {
+          "num": 5,
+          "seconds": 7,
+          "visual": "74.1% badge animates in with green checkmarks",
+          "voiceover": "74.1% win rate. Tracked. Public. Verifiable.",
+          "text_on_screen": "74.1% Win Rate"
+        },
+        {
+          "num": 6,
+          "seconds": 7,
+          "visual": "Person relaxing, phone shows CWT notification, smiling",
+          "voiceover": "Start free. 20 predictions. No credit card.",
+          "text_on_screen": "Start Free \u2192 crowdwisdomtrading.com"
+        }
+      ],
+      "cta": "Join 16,564 Pro Traders Free",
+      "why_it_works": "Large credible numbers create instant social proof and FOMO."
+    },
+    {
+      "type": "C_pattern_interrupt",
+      "hook": "Stop doing your own research.",
+      "scenes": [
+        {
+          "num": 1,
+          "seconds": 5,
+          "visual": "Stressed trader, multiple browser tabs open",
+          "voiceover": "You've been doing this the hard way.",
+          "text_on_screen": null
+        },
+        {
+          "num": 2,
+          "seconds": 8,
+          "visual": "Split screen: 50 tabs vs clean CWT dashboard",
+          "voiceover": "Hours of YouTube. Conflicting gurus. Still no plan.",
+          "text_on_screen": "Sound familiar?"
+        },
+        {
+          "num": 3,
+          "seconds": 7,
+          "visual": "Animated counter: 16,564 trader profile icons appear",
+          "voiceover": "16,564 professional traders already did the research for you.",
+          "text_on_screen": "16,564 Pro Traders"
+        },
+        {
+          "num": 4,
+          "seconds": 6,
+          "visual": "Trade card: AAPL \u2014 Entry $142, Stop $139, Target $151",
+          "voiceover": "Clear entry, stop, and target. Every week. No guessing.",
+          "text_on_screen": "Entry \u00b7 Stop \u00b7 Target"
+        },
+        {
+          "num": 5,
+          "seconds": 7,
+          "visual": "74.1% badge animates in with green checkmarks",
+          "voiceover": "74.1% win rate. Tracked. Public. Verifiable.",
+          "text_on_screen": "74.1% Win Rate"
+        },
+        {
+          "num": 6,
+          "seconds": 7,
+          "visual": "Person relaxing, phone shows CWT notification, smiling",
+          "voiceover": "Start free. 20 predictions. No credit card.",
+          "text_on_screen": "Start Free \u2192 crowdwisdomtrading.com"
+        }
+      ],
+      "cta": "Let 16,564 Experts Do It For You",
+      "why_it_works": "Contrarian opener causes a scroll-stop moment of curiosity."
+    }
+  ]
+}
