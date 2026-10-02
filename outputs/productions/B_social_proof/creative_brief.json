@@ -1,0 +1,48 @@
+{
+  "format": "Instagram Reels / TikTok, vertical 9:16, 1080x1920",
+  "duration_target_seconds": 43,
+  "delivery_promise": "cinematic, motion-led ad with real footage; never a text-ad or slideshow",
+  "voice_direction": "warm, intimate US English narrator; restrained, confident, never announcer-like",
+  "music_direction": "minimal pulsing cinematic score, subtle market-ticker texture, mixed under narration",
+  "creative_route": "B_social_proof",
+  "hook": "The market is loud. The crowd can be useful.",
+  "cta": "Join 16,564 traders free",
+  "marketing_insight": "Cinematic tension-to-clarity creative route",
+  "scenes": [
+    {
+      "num": 1,
+      "seconds": 7,
+      "visual": "Aerial night city; push toward one glowing trading screen.",
+      "voiceover": "Every morning, thousands of traders ask the same question. What matters now?",
+      "text_on_screen": "What matters now?"
+    },
+    {
+      "num": 2,
+      "seconds": 7,
+      "visual": "Elegant match cuts: keyboards, trains, coffee, opening bell.",
+      "voiceover": "On their own, every opinion is noise. Together, a pattern starts to appear.",
+      "text_on_screen": "A pattern appears."
+    },
+    {
+      "num": 3,
+      "seconds": 7,
+      "visual": "Charts resolve from blur to focus in a trader's glasses.",
+      "voiceover": "CrowdWisdom distils the collective view of 16,564 professional traders into weekly ideas.",
+      "text_on_screen": "16,564 professional views."
+    },
+    {
+      "num": 4,
+      "seconds": 7,
+      "visual": "Quiet phone check in a sunlit cafe\u2014no fake UI.",
+      "voiceover": "Not a guru. Not a hot take. A transparent view of where conviction is building.",
+      "text_on_screen": "Not another hot take."
+    },
+    {
+      "num": 5,
+      "seconds": 7,
+      "visual": "Wide shot: trader walks confidently into a waking city.",
+      "voiceover": "When the crowd sees something, you deserve to see it too.",
+      "text_on_screen": "See the signal."
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "format": "Instagram Reels / TikTok, vertical 9:16, 1080x1920",
+  "duration_target_seconds": 43,
+  "delivery_promise": "cinematic, motion-led ad with real footage; never a text-ad or slideshow",
+  "voice_direction": "warm, intimate US English narrator; restrained, confident, never announcer-like",
+  "music_direction": "minimal pulsing cinematic score, subtle market-ticker texture, mixed under narration",
+  "creative_route": "A_pain_to_clarity",
+  "hook": "Your next trade should not start with panic.",
+  "cta": "Get 20 free predictions",
+  "marketing_insight": "Cinematic tension-to-clarity creative route",
+  "scenes": [
+    {
+      "num": 1,
+      "seconds": 7,
+      "visual": "Extreme close-up of a trader lit by fast-moving monitors at 11:47 PM; slow push-in.",
+      "voiceover": "It is late. You have twelve tabs open. And somehow, you are less certain than when you started.",
+      "text_on_screen": "Too much noise."
+    },
+    {
+      "num": 2,
+      "seconds": 7,
+      "visual": "Phone vibrates beside cold coffee; laptop closes and the room falls quiet.",
+      "voiceover": "The market is not short on opinions. It is short on clear conviction.",
+      "text_on_screen": "Clear conviction."
+    },
+    {
+      "num": 3,
+      "seconds": 7,
+      "visual": "Match cut to a calm morning commute, phone in hand, city light on glass.",
+      "voiceover": "CrowdWisdom brings thousands of professional views into one focused signal.",
+      "text_on_screen": "One focused signal."
+    },
+    {
+      "num": 4,
+      "seconds": 7,
+      "visual": "Lateral shot of a composed trader checking a phone before market open.",
+      "voiceover": "See the entry, the risk, and the target without giving up your evening to research.",
+      "text_on_screen": "Less research. More clarity."
+    },
+    {
+      "num": 5,
+      "seconds": 7,
+      "visual": "Warm sunrise as the trader walks away from the desk, relaxed.",
+      "voiceover": "Make your next move with a plan, not a panic reaction.",
+      "text_on_screen": "Trade with a plan."
+    }
+  ]
+}

@@ -16,7 +16,7 @@ Pipeline:
 """
 
 # ── Standard library ─────────────────────────────────────────────────────────
-import os, json, sys, textwrap, urllib.request, math
+import os, json, sys, textwrap, urllib.request, math, asyncio
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -27,6 +27,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich import box
+from openmontage_handoff import write_production_package
 
 load_dotenv()
 console = Console()
@@ -47,6 +48,11 @@ PEXELS_KEY = os.getenv("PEXELS_API_KEY", "")
 OUT_DIR    = Path("outputs")
 VIDEOS_DIR = OUT_DIR / "videos"
 TEMP_DIR   = OUT_DIR / "temp"
+BUILTIN_BROLLS = [
+    Path("assets") / "cinematic-trader.png",
+    Path("assets") / "cinematic-phone.png",
+    Path("assets") / "cinematic-success.png",
+]
 
 # Real CrowdWisdomTrading facts — injected into every ad script
 CWT = {
@@ -72,7 +78,9 @@ GREEN = (0, 212, 132)
 
 def ask_llm(system: str, user: str, temperature: float = 0.5):
     """Call Hermes-3 via OpenRouter and return parsed JSON (or raw string)."""
-    client = OpenAI(api_key=LLM_KEY, base_url=LLM_BASE_URL)
+    # A short timeout keeps the demo pipeline progressing to its offline fallbacks
+    # when a school/work proxy blocks the external provider.
+    client = OpenAI(api_key=LLM_KEY, base_url=LLM_BASE_URL, timeout=20.0, max_retries=0)
     try:
         resp = client.chat.completions.create(
             model=LLM_MODEL,
@@ -89,7 +97,7 @@ def ask_llm(system: str, user: str, temperature: float = 0.5):
             text = text.split("```")[1].split("```")[0].strip()
         return json.loads(text)
     except Exception as e:
-        console.print(f"[yellow]⚠ LLM call failed: {e}[/yellow]")
+        console.print(f"[yellow]WARNING: LLM call failed: {e}[/yellow]")
         return {}
 
 
@@ -99,7 +107,7 @@ def ask_llm(system: str, user: str, temperature: float = 0.5):
 
 def agent1_scrape_ads() -> list[dict]:
     """Scrape Meta Ads Library for top trading ads via Apify."""
-    console.print("\n[bold cyan]🔍 Agent 1: Scraping Meta Ads Library...[/bold cyan]")
+    console.print("\n[bold cyan]Agent 1: Scraping Meta Ads Library...[/bold cyan]")
 
     if not APIFY_KEY:
         console.print("  [yellow]No Apify key — using mock ads[/yellow]")
@@ -135,7 +143,7 @@ def agent1_scrape_ads() -> list[dict]:
 
     OUT_DIR.mkdir(exist_ok=True)
     (OUT_DIR / "top_ads.json").write_text(json.dumps(result, indent=2))
-    console.print(f"  ✅ {len(result)} ads saved → outputs/top_ads.json")
+    console.print(f"  OK: {len(result)} ads saved to outputs/top_ads.json")
     return result
 
 
@@ -162,7 +170,7 @@ def _mock_ads() -> list[dict]:
 
 def agent2_analyze(ads: list[dict]) -> dict:
     """Use LLM to extract pain points, ICP, and winning patterns from the ads."""
-    console.print("\n[bold magenta]🧠 Agent 2: Analyzing ads with Hermes-3...[/bold magenta]")
+    console.print("\n[bold magenta]Agent 2: Analyzing ads with Hermes-3...[/bold magenta]")
 
     ads_block = "\n".join([f"- {a['advertiser']}: {a['text']} | CTA: {a['cta']}" for a in ads])
 
@@ -201,7 +209,7 @@ Also consider CrowdWisdomTrading: {CWT['traders']} traders, {CWT['win_rate']} wi
 
     OUT_DIR.mkdir(exist_ok=True)
     (OUT_DIR / "marketing_insights.json").write_text(json.dumps(result, indent=2))
-    console.print("  ✅ Insights saved → outputs/marketing_insights.json")
+    console.print("  OK: Insights saved to outputs/marketing_insights.json")
     return result
 
 
@@ -211,7 +219,7 @@ Also consider CrowdWisdomTrading: {CWT['traders']} traders, {CWT['win_rate']} wi
 
 def agent3_write_scripts(insights: dict) -> list[dict]:
     """Search the web for context, then write 3 ad scripts with the LLM."""
-    console.print("\n[bold green]✍  Agent 3: Writing 3 ad scripts...[/bold green]")
+    console.print("\n[bold green]Agent 3: Writing 3 ad scripts...[/bold green]")
 
     # Web research (optional — falls back gracefully if keys missing)
     research = _web_research()
@@ -260,19 +268,19 @@ Write 5-6 scenes per script. Make hooks UNFORGETTABLE.""",
 
     # Fallback if LLM fails
     if not scripts:
-        scripts = _fallback_scripts()
+        scripts = _cinematic_fallback_scripts()
 
     # If LLM returned a dict with a key instead of a list, unwrap it
     if isinstance(scripts, dict):
-        scripts = list(scripts.values())[0] if scripts else _fallback_scripts()
+        scripts = list(scripts.values())[0] if scripts else _cinematic_fallback_scripts()
 
     OUT_DIR.mkdir(exist_ok=True)
     (OUT_DIR / "ad_scripts.json").write_text(
         json.dumps({"generated_at": datetime.now().isoformat(), "scripts": scripts}, indent=2)
     )
-    console.print(f"  ✅ {len(scripts)} scripts saved → outputs/ad_scripts.json")
+    console.print(f"  OK: {len(scripts)} scripts saved to outputs/ad_scripts.json")
     for s in scripts:
-        console.print(f"     • {s.get('type','')}: \"{s.get('hook','')}\"")
+        console.print(f"     - {s.get('type','')}: \"{s.get('hook','')}\"")
     return scripts
 
 
@@ -288,7 +296,7 @@ def _web_research() -> str:
             )
             for r in resp.get("results", []):
                 results.append(r.get("content", "")[:200])
-            console.print("  → Tavily: found research context")
+            console.print("  Tavily: found research context")
         except Exception as e:
             console.print(f"  [yellow]Tavily: {e}[/yellow]")
 
@@ -301,7 +309,7 @@ def _web_research() -> str:
                 start_published_date=(datetime.now()-timedelta(days=30)).strftime("%Y-%m-%d"),
             )
             results = [r.title for r in resp.results]
-            console.print("  → Exa: found semantic context")
+            console.print("  Exa: found semantic context")
         except Exception as e:
             console.print(f"  [yellow]Exa: {e}[/yellow]")
 
@@ -310,6 +318,41 @@ def _web_research() -> str:
         "Average trader spends 8+ hours weekly on research. "
         "Emotional trading causes 30% of retail losses."
     )
+
+
+def _cinematic_fallback_scripts() -> list[dict]:
+    """Three 30-60 second film treatments used whenever the LLM is offline."""
+    routes = [
+        ("A_pain_to_clarity", "Your next trade should not start with panic.", "Get 20 free predictions", [
+            ("Extreme close-up of a trader lit by fast-moving monitors at 11:47 PM; slow push-in.", "It is late. You have twelve tabs open. And somehow, you are less certain than when you started.", "Too much noise."),
+            ("Phone vibrates beside cold coffee; laptop closes and the room falls quiet.", "The market is not short on opinions. It is short on clear conviction.", "Clear conviction."),
+            ("Match cut to a calm morning commute, phone in hand, city light on glass.", "CrowdWisdom brings thousands of professional views into one focused signal.", "One focused signal."),
+            ("Lateral shot of a composed trader checking a phone before market open.", "See the entry, the risk, and the target without giving up your evening to research.", "Less research. More clarity."),
+            ("Warm sunrise as the trader walks away from the desk, relaxed.", "Make your next move with a plan, not a panic reaction.", "Trade with a plan."),
+        ]),
+        ("B_social_proof", "The market is loud. The crowd can be useful.", "Join 16,564 traders free", [
+            ("Aerial night city; push toward one glowing trading screen.", "Every morning, thousands of traders ask the same question. What matters now?", "What matters now?"),
+            ("Elegant match cuts: keyboards, trains, coffee, opening bell.", "On their own, every opinion is noise. Together, a pattern starts to appear.", "A pattern appears."),
+            ("Charts resolve from blur to focus in a trader's glasses.", "CrowdWisdom distils the collective view of 16,564 professional traders into weekly ideas.", "16,564 professional views."),
+            ("Quiet phone check in a sunlit cafe—no fake UI.", "Not a guru. Not a hot take. A transparent view of where conviction is building.", "Not another hot take."),
+            ("Wide shot: trader walks confidently into a waking city.", "When the crowd sees something, you deserve to see it too.", "See the signal."),
+        ]),
+        ("C_pattern_interrupt", "Stop researching. Start deciding.", "See this week's free predictions", [
+            ("Black frame, one notification sound, then smash cut to browser tabs in a tired face.", "Stop researching.", "STOP RESEARCHING."),
+            ("Windows collapse in a practical edit, leaving one calm screen.", "Not because research does not matter. More tabs do not create better decisions.", "More tabs. Less clarity."),
+            ("Camera circles a trader as morning light replaces monitor glow.", "A better decision starts with knowing what informed traders are already watching.", "Know what matters."),
+            ("Phone placed face-down after a confident choice, then the trader steps outside.", "CrowdWisdom gives you a focused weekly view in minutes, so your time stays yours.", "Minutes, not hours."),
+            ("Slow-motion street walk into warm daylight; music resolves.", "Stop chasing every opinion. Start deciding with clarity.", "Start deciding."),
+        ]),
+    ]
+    return [
+        {"type": ad_type, "hook": hook, "cta": cta,
+         "why_it_works": "A cinematic emotional arc: tension, clarity, then confidence.",
+         "scenes": [{"num": index + 1, "seconds": 7, "visual": visual,
+                     "voiceover": voiceover, "text_on_screen": caption}
+                    for index, (visual, voiceover, caption) in enumerate(beats)]}
+        for ad_type, hook, cta, beats in routes
+    ]
 
 
 def _fallback_scripts() -> list[dict]:
@@ -349,9 +392,9 @@ def _fallback_scripts() -> list[dict]:
 # SECTION 6 — AGENT 4: GENERATE VIDEOS (MoviePy + gTTS + Pillow)
 # =============================================================================
 
-def agent4_make_videos(scripts: list[dict]) -> list[str]:
+def agent4_make_videos(scripts: list[dict], insights: dict | None = None) -> list[str]:
     """Turn each script into a real .mp4 video file."""
-    console.print("\n[bold red]🎬 Agent 4: Generating video ads...[/bold red]")
+    console.print("\n[bold red]Agent 4: Generating video ads...[/bold red]")
 
     try:
         from moviepy import ImageClip, AudioFileClip, concatenate_videoclips, CompositeVideoClip  # type: ignore
@@ -367,11 +410,13 @@ def agent4_make_videos(scripts: list[dict]) -> list[str]:
     for script in scripts:
         ad_type = script.get("type", "ad").split("_")[0].upper()
         out_path = str(VIDEOS_DIR / f"ad_{ad_type}.mp4")
-        console.print(f"\n  → Building Ad {ad_type}: \"{script.get('hook','')}\"")
+        package = write_production_package(script, insights or {}, OUT_DIR)
+        console.print(f"    OpenMontage package: {package}")
+        console.print(f"\n  Building Ad {ad_type}: \"{script.get('hook','')}\"")
         try:
             _render_video(script, out_path)  # type: ignore
             output_paths.append(out_path)
-            console.print(f"    ✅ {out_path}")
+            console.print(f"    OK: {out_path}")
         except Exception as e:
             console.print(f"    [red]Failed: {e}[/red]")
             console.print("    [dim]Tip: Install FFmpeg from ffmpeg.org and add it to PATH[/dim]")
@@ -383,7 +428,9 @@ def _render_video(script: dict, out_path: str):
     # pyrefly: ignore [missing-import]
     from moviepy import ImageClip, AudioFileClip, concatenate_videoclips, CompositeVideoClip
 
-    W, H = 1080, 1920  # vertical / Reels format
+    # This is a quick local proof render. OpenMontage produces the final
+    # 1080x1920 cinematic cut from the production package.
+    W, H = 360, 640
     clips = []
 
     # 1 — Title card (3 sec)
@@ -393,12 +440,10 @@ def _render_video(script: dict, out_path: str):
     # 2 — One clip per scene
     for scene in script.get("scenes", []):
         dur = scene.get("seconds", 5)
-        img = _make_premium_scene_img(scene, W, H)
-        # A gentle push-in makes the dashboard feel like video rather than a slide.
-        still = ImageClip(img).with_duration(dur)
-        vc = CompositeVideoClip([
-            still.resized(lambda t: 1 + (0.025 * t / dur)).with_position("center")
-        ], size=(W, H)).with_duration(dur)
+        img = _make_cinematic_scene_img(scene, W, H)
+        # Preview renderer: static clips encode quickly. The final production uses
+        # OpenMontage motion footage and camera moves from the generated handoff.
+        vc = ImageClip(img).with_duration(dur)
 
         # Voiceover
         audio = _make_audio(scene.get("voiceover",""), scene["num"], script["type"])
@@ -413,7 +458,7 @@ def _render_video(script: dict, out_path: str):
     clips.append(ImageClip(cta_path).with_duration(5))
 
     final = concatenate_videoclips(clips, method="compose")
-    final.write_videofile(out_path, fps=24, codec="libx264",
+    final.write_videofile(out_path, fps=12, codec="libx264", preset="ultrafast",
                           audio_codec="aac", logger=None)
     final.close()
     for c in clips:
@@ -571,19 +616,50 @@ def _make_premium_cta_img(cta: str, W: int, H: int) -> str:
     return path
 
 
+def _make_cinematic_scene_img(scene: dict, W: int, H: int) -> str:
+    """Cinematic local preview shot using varied, bundled b-roll—not dashboard slides."""
+    from PIL import Image, ImageDraw
+    source_path = BUILTIN_BROLLS[(int(scene.get("num", 1)) - 1) % len(BUILTIN_BROLLS)]
+    if not source_path.exists():
+        return _make_premium_scene_img(scene, W, H)
+    source = Image.open(source_path).convert("RGB")
+    scale = max(W / source.width, H / source.height)
+    source = source.resize((round(source.width * scale), round(source.height * scale)))
+    left, top = (source.width - W) // 2, (source.height - H) // 2
+    image = source.crop((left, top, left + W, top + H)).convert("RGBA")
+    image = Image.alpha_composite(image, Image.new("RGBA", (W, H), (3, 9, 20, 135))).convert("RGB")
+    draw = ImageDraw.Draw(image)
+    _header(draw, W, f"INSIGHT {int(scene.get('num', 1)):02d}")
+    _multiline(draw, (W//2, H*.62), (scene.get("text_on_screen") or "Trade with clarity").upper(), _font(66), WHITE, int(W*.80))
+    draw.rounded_rectangle([85, H*.73, W-85, H*.86], radius=30, fill=(8, 18, 36))
+    _multiline(draw, (W//2, H*.795), scene.get("voiceover", ""), _font(35, False), (232, 238, 250), int(W*.72))
+    draw.text((W//2, H*.91), CWT["url"], font=_font(27, False), fill=GOLD, anchor="mm")
+    path = str(TEMP_DIR / f"cinematic_scene_{scene.get('num', 1)}.jpg")
+    image.save(path, quality=94)
+    return path
+
+
 def _make_audio(text: str, num: int, script_type: str):
-    """Generate a voiceover MP3 with gTTS (free Google TTS)."""
+    """Generate an Edge neural voice; use gTTS only if neural TTS is unavailable."""
     if not text.strip():
         return None
     try:
-        from gtts import gTTS
+        import edge_tts
         from moviepy import AudioFileClip  # type: ignore
-        path = str(TEMP_DIR / f"vo_{script_type}_{num}.mp3")
+        path = str(TEMP_DIR / f"vo_neural_{script_type}_{num}.mp3")
         if not Path(path).exists():
-            gTTS(text=text, lang="en").save(path)
+            asyncio.run(edge_tts.Communicate(text, voice="en-US-AndrewNeural", rate="+4%").save(path))
         return AudioFileClip(path)
     except Exception:
-        return None
+        try:
+            from gtts import gTTS
+            from moviepy import AudioFileClip  # type: ignore
+            path = str(TEMP_DIR / f"vo_{script_type}_{num}.mp3")
+            if not Path(path).exists():
+                gTTS(text=text, lang="en").save(path)
+            return AudioFileClip(path)
+        except Exception:
+            return None
 
 
 # =============================================================================
@@ -592,13 +668,13 @@ def _make_audio(text: str, num: int, script_type: str):
 
 def show_board(statuses: dict):
     """Print a live Kanban board showing agent progress."""
-    t = Table(box=box.ROUNDED, title="🎬 CrowdWisdomTrading Ads Agent",
+    t = Table(box=box.ROUNDED, title="CrowdWisdomTrading Ads Agent",
               title_style="bold yellow", show_lines=True)
     t.add_column("Agent",  style="bold white", width=30)
     t.add_column("Status", width=14)
     t.add_column("Output", style="dim", width=36)
 
-    icons = {"pending":"⬜ Pending","running":"🔄 Running","done":"✅ Done","failed":"❌ Failed"}
+    icons = {"pending":"Pending","running":"Running","done":"Done","failed":"Failed"}
     colors = {"pending":"white","running":"yellow","done":"green","failed":"red"}
     outputs = {
         "1. Scraper":      "outputs/top_ads.json",
@@ -616,7 +692,7 @@ def show_board(statuses: dict):
 def main():
     console.print(Panel(
         "[bold yellow]CrowdWisdomTrading[/bold yellow] Video Ads Agent\n\n"
-        "[dim]Scrapes winning ads → Analyzes pain points → Writes scripts → Makes videos[/dim]",
+        "[dim]Scrapes winning ads -> Analyzes pain points -> Writes scripts -> Makes videos[/dim]",
         border_style="yellow", padding=(1, 4)
     ))
 
@@ -646,15 +722,15 @@ def main():
 
     # Agent 4
     statuses["4. Video"] = "running"; show_board(statuses)
-    videos = agent4_make_videos(scripts)
+    videos = agent4_make_videos(scripts, insights)
     statuses["4. Video"] = "done" if videos else "failed"; show_board(statuses)
 
     console.print(Panel(
-        f"[bold green]✅ Done![/bold green]\n\n"
+        f"[bold green]Done![/bold green]\n\n"
         f"  Ads scraped:  {len(ads)}\n"
         f"  Scripts:      {len(scripts)}\n"
         f"  Videos:       {len(videos)}\n\n"
-        + "\n".join(f"  • {v}" for v in videos),
+        + "\n".join(f"  - {v}" for v in videos),
         border_style="green", title="Results"
     ))
 

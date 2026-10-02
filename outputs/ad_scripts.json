@@ -1,155 +1,134 @@
 {
-  "generated_at": "2026-09-07T23:41:38.103617",
+  "generated_at": "2026-09-08T00:32:12.680109",
   "scripts": [
     {
-      "type": "A_pain",
-      "hook": "You've been doing this wrong.",
+      "type": "A_pain_to_clarity",
+      "hook": "Your next trade should not start with panic.",
+      "cta": "Get 20 free predictions",
+      "why_it_works": "A cinematic emotional arc: tension, clarity, then confidence.",
       "scenes": [
         {
           "num": 1,
-          "seconds": 5,
-          "visual": "Stressed trader, multiple browser tabs open",
-          "voiceover": "You've been doing this the hard way.",
-          "text_on_screen": null
+          "seconds": 7,
+          "visual": "Extreme close-up of a trader lit by fast-moving monitors at 11:47 PM; slow push-in.",
+          "voiceover": "It is late. You have twelve tabs open. And somehow, you are less certain than when you started.",
+          "text_on_screen": "Too much noise."
         },
         {
           "num": 2,
-          "seconds": 8,
-          "visual": "Split screen: 50 tabs vs clean CWT dashboard",
-          "voiceover": "Hours of YouTube. Conflicting gurus. Still no plan.",
-          "text_on_screen": "Sound familiar?"
+          "seconds": 7,
+          "visual": "Phone vibrates beside cold coffee; laptop closes and the room falls quiet.",
+          "voiceover": "The market is not short on opinions. It is short on clear conviction.",
+          "text_on_screen": "Clear conviction."
         },
         {
           "num": 3,
           "seconds": 7,
-          "visual": "Animated counter: 16,564 trader profile icons appear",
-          "voiceover": "16,564 professional traders already did the research for you.",
-          "text_on_screen": "16,564 Pro Traders"
+          "visual": "Match cut to a calm morning commute, phone in hand, city light on glass.",
+          "voiceover": "CrowdWisdom brings thousands of professional views into one focused signal.",
+          "text_on_screen": "One focused signal."
         },
         {
           "num": 4,
-          "seconds": 6,
-          "visual": "Trade card: AAPL \u2014 Entry $142, Stop $139, Target $151",
-          "voiceover": "Clear entry, stop, and target. Every week. No guessing.",
-          "text_on_screen": "Entry \u00b7 Stop \u00b7 Target"
+          "seconds": 7,
+          "visual": "Lateral shot of a composed trader checking a phone before market open.",
+          "voiceover": "See the entry, the risk, and the target without giving up your evening to research.",
+          "text_on_screen": "Less research. More clarity."
         },
         {
           "num": 5,
           "seconds": 7,
-          "visual": "74.1% badge animates in with green checkmarks",
-          "voiceover": "74.1% win rate. Tracked. Public. Verifiable.",
-          "text_on_screen": "74.1% Win Rate"
-        },
-        {
-          "num": 6,
-          "seconds": 7,
-          "visual": "Person relaxing, phone shows CWT notification, smiling",
-          "voiceover": "Start free. 20 predictions. No credit card.",
-          "text_on_screen": "Start Free \u2192 crowdwisdomtrading.com"
+          "visual": "Warm sunrise as the trader walks away from the desk, relaxed.",
+          "voiceover": "Make your next move with a plan, not a panic reaction.",
+          "text_on_screen": "Trade with a plan."
         }
-      ],
-      "cta": "Get 20 Free Predictions",
-      "why_it_works": "Mirrors the viewer's frustration then delivers relief."
+      ]
     },
     {
       "type": "B_social_proof",
-      "hook": "16,564 traders can't be wrong.",
+      "hook": "The market is loud. The crowd can be useful.",
+      "cta": "Join 16,564 traders free",
+      "why_it_works": "A cinematic emotional arc: tension, clarity, then confidence.",
       "scenes": [
         {
           "num": 1,
-          "seconds": 5,
-          "visual": "Stressed trader, multiple browser tabs open",
-          "voiceover": "You've been doing this the hard way.",
-          "text_on_screen": null
+          "seconds": 7,
+          "visual": "Aerial night city; push toward one glowing trading screen.",
+          "voiceover": "Every morning, thousands of traders ask the same question. What matters now?",
+          "text_on_screen": "What matters now?"
         },
         {
           "num": 2,
-          "seconds": 8,
-          "visual": "Split screen: 50 tabs vs clean CWT dashboard",
-          "voiceover": "Hours of YouTube. Conflicting gurus. Still no plan.",
-          "text_on_screen": "Sound familiar?"
+          "seconds": 7,
+          "visual": "Elegant match cuts: keyboards, trains, coffee, opening bell.",
+          "voiceover": "On their own, every opinion is noise. Together, a pattern starts to appear.",
+          "text_on_screen": "A pattern appears."
         },
         {
           "num": 3,
           "seconds": 7,
-          "visual": "Animated counter: 16,564 trader profile icons appear",
-          "voiceover": "16,564 professional traders already did the research for you.",
-          "text_on_screen": "16,564 Pro Traders"
+          "visual": "Charts resolve from blur to focus in a trader's glasses.",
+          "voiceover": "CrowdWisdom distils the collective view of 16,564 professional traders into weekly ideas.",
+          "text_on_screen": "16,564 professional views."
         },
         {
           "num": 4,
-          "seconds": 6,
-          "visual": "Trade card: AAPL \u2014 Entry $142, Stop $139, Target $151",
-          "voiceover": "Clear entry, stop, and target. Every week. No guessing.",
-          "text_on_screen": "Entry \u00b7 Stop \u00b7 Target"
+          "seconds": 7,
+          "visual": "Quiet phone check in a sunlit cafe\u2014no fake UI.",
+          "voiceover": "Not a guru. Not a hot take. A transparent view of where conviction is building.",
+          "text_on_screen": "Not another hot take."
         },
         {
           "num": 5,
           "seconds": 7,
-          "visual": "74.1% badge animates in with green checkmarks",
-          "voiceover": "74.1% win rate. Tracked. Public. Verifiable.",
-          "text_on_screen": "74.1% Win Rate"
-        },
-        {
-          "num": 6,
-          "seconds": 7,
-          "visual": "Person relaxing, phone shows CWT notification, smiling",
-          "voiceover": "Start free. 20 predictions. No credit card.",
-          "text_on_screen": "Start Free \u2192 crowdwisdomtrading.com"
+          "visual": "Wide shot: trader walks confidently into a waking city.",
+          "voiceover": "When the crowd sees something, you deserve to see it too.",
+          "text_on_screen": "See the signal."
         }
-      ],
-      "cta": "Join 16,564 Pro Traders Free",
-      "why_it_works": "Large credible numbers create instant social proof and FOMO."
+      ]
     },
     {
       "type": "C_pattern_interrupt",
-      "hook": "Stop doing your own research.",
+      "hook": "Stop researching. Start deciding.",
+      "cta": "See this week's free predictions",
+      "why_it_works": "A cinematic emotional arc: tension, clarity, then confidence.",
       "scenes": [
         {
           "num": 1,
-          "seconds": 5,
-          "visual": "Stressed trader, multiple browser tabs open",
-          "voiceover": "You've been doing this the hard way.",
-          "text_on_screen": null
+          "seconds": 7,
+          "visual": "Black frame, one notification sound, then smash cut to browser tabs in a tired face.",
+          "voiceover": "Stop researching.",
+          "text_on_screen": "STOP RESEARCHING."
         },
         {
           "num": 2,
-          "seconds": 8,
-          "visual": "Split screen: 50 tabs vs clean CWT dashboard",
-          "voiceover": "Hours of YouTube. Conflicting gurus. Still no plan.",
-          "text_on_screen": "Sound familiar?"
+          "seconds": 7,
+          "visual": "Windows collapse in a practical edit, leaving one calm screen.",
+          "voiceover": "Not because research does not matter. More tabs do not create better decisions.",
+          "text_on_screen": "More tabs. Less clarity."
         },
         {
           "num": 3,
           "seconds": 7,
-          "visual": "Animated counter: 16,564 trader profile icons appear",
-          "voiceover": "16,564 professional traders already did the research for you.",
-          "text_on_screen": "16,564 Pro Traders"
+          "visual": "Camera circles a trader as morning light replaces monitor glow.",
+          "voiceover": "A better decision starts with knowing what informed traders are already watching.",
+          "text_on_screen": "Know what matters."
         },
         {
           "num": 4,
-          "seconds": 6,
-          "visual": "Trade card: AAPL \u2014 Entry $142, Stop $139, Target $151",
-          "voiceover": "Clear entry, stop, and target. Every week. No guessing.",
-          "text_on_screen": "Entry \u00b7 Stop \u00b7 Target"
+          "seconds": 7,
+          "visual": "Phone placed face-down after a confident choice, then the trader steps outside.",
+          "voiceover": "CrowdWisdom gives you a focused weekly view in minutes, so your time stays yours.",
+          "text_on_screen": "Minutes, not hours."
         },
         {
           "num": 5,
           "seconds": 7,
-          "visual": "74.1% badge animates in with green checkmarks",
-          "voiceover": "74.1% win rate. Tracked. Public. Verifiable.",
-          "text_on_screen": "74.1% Win Rate"
-        },
-        {
-          "num": 6,
-          "seconds": 7,
-          "visual": "Person relaxing, phone shows CWT notification, smiling",
-          "voiceover": "Start free. 20 predictions. No credit card.",
-          "text_on_screen": "Start Free \u2192 crowdwisdomtrading.com"
+          "visual": "Slow-motion street walk into warm daylight; music resolves.",
+          "voiceover": "Stop chasing every opinion. Start deciding with clarity.",
+          "text_on_screen": "Start deciding."
         }
-      ],
-      "cta": "Let 16,564 Experts Do It For You",
-      "why_it_works": "Contrarian opener causes a scroll-stop moment of curiosity."
+      ]
     }
   ]
 }

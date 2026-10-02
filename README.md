@@ -1,6 +1,6 @@
 # CrowdWisdomTrading Video Ads Agent
 
-An AI multi-agent pipeline that automatically generates video ads for [crowdwisdomtrading.com](https://crowdwisdomtrading.com).
+An AI-agent marketing pipeline for [crowdwisdomtrading.com](https://crowdwisdomtrading.com). It researches winning ads, finds audience tension, creates three cinematic film treatments, and packages each route for a final OpenMontage render.
 
 ## What This Does
 
@@ -12,7 +12,7 @@ Agent 1 (Scraper)  →  Agent 2 (Analyzer)  →  Agent 3 (Scripts)  →  Agent 4
 1. **Agent 1** scrapes top trading ads from the Meta Ads Library (last 30 days)
 2. **Agent 2** extracts pain points, ICP, and winning patterns using the LLM
 3. **Agent 3** writes 3 different 30–60 sec video ad scripts with storyboards
-4. **Agent 4** produces actual `.mp4` video files from the scripts
+4. **Agent 4** creates an OpenMontage production package per route: a creative brief, screenplay, shot intent, and final-render prompt.
 
 ## Output Files
 
@@ -21,6 +21,7 @@ Agent 1 (Scraper)  →  Agent 2 (Analyzer)  →  Agent 3 (Scripts)  →  Agent 4
 | `outputs/top_ads.json` | Top 20 Meta ads found in the trading niche |
 | `outputs/marketing_insights.json` | Pain points, ICP, creative patterns |
 | `outputs/ad_scripts.json` | 3 full storyboarded ad scripts |
+| `outputs/productions/<route>/` | OpenMontage-ready creative brief, screenplay, and production prompt |
 | `outputs/videos/ad_A.mp4` | Pain/Problem ad (30–60 sec) |
 | `outputs/videos/ad_B.mp4` | Social Proof/Data ad (30–60 sec) |
 | `outputs/videos/ad_C.mp4` | Pattern Interrupt ad (30–60 sec) |
@@ -88,6 +89,13 @@ crowdwisdom_ads_agent/
 ```
 
 ## How Each Agent Works
+
+## Final cinematic render
+
+The local MoviePy result is a proof preview only. For the assessment's final
+30–60 second ads, use the package in `outputs/productions/` with OpenMontage.
+It enforces real/motion footage, neural narration, music, edit pacing, and a
+slideshow-risk quality gate. Follow [OPENMONTAGE_RUN.md](OPENMONTAGE_RUN.md).
 
 ### Agent 1 — Scraper (`agent_1_scraper.py`)
 - Uses Apify's `facebook-ads-scraper` actor

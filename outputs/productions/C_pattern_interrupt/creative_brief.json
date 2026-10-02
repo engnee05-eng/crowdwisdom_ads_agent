@@ -1,0 +1,48 @@
+{
+  "format": "Instagram Reels / TikTok, vertical 9:16, 1080x1920",
+  "duration_target_seconds": 43,
+  "delivery_promise": "cinematic, motion-led ad with real footage; never a text-ad or slideshow",
+  "voice_direction": "warm, intimate US English narrator; restrained, confident, never announcer-like",
+  "music_direction": "minimal pulsing cinematic score, subtle market-ticker texture, mixed under narration",
+  "creative_route": "C_pattern_interrupt",
+  "hook": "Stop researching. Start deciding.",
+  "cta": "See this week's free predictions",
+  "marketing_insight": "Cinematic tension-to-clarity creative route",
+  "scenes": [
+    {
+      "num": 1,
+      "seconds": 7,
+      "visual": "Black frame, one notification sound, then smash cut to browser tabs in a tired face.",
+      "voiceover": "Stop researching.",
+      "text_on_screen": "STOP RESEARCHING."
+    },
+    {
+      "num": 2,
+      "seconds": 7,
+      "visual": "Windows collapse in a practical edit, leaving one calm screen.",
+      "voiceover": "Not because research does not matter. More tabs do not create better decisions.",
+      "text_on_screen": "More tabs. Less clarity."
+    },
+    {
+      "num": 3,
+      "seconds": 7,
+      "visual": "Camera circles a trader as morning light replaces monitor glow.",
+      "voiceover": "A better decision starts with knowing what informed traders are already watching.",
+      "text_on_screen": "Know what matters."
+    },
+    {
+      "num": 4,
+      "seconds": 7,
+      "visual": "Phone placed face-down after a confident choice, then the trader steps outside.",
+      "voiceover": "CrowdWisdom gives you a focused weekly view in minutes, so your time stays yours.",
+      "text_on_screen": "Minutes, not hours."
+    },
+    {
+      "num": 5,
+      "seconds": 7,
+      "visual": "Slow-motion street walk into warm daylight; music resolves.",
+      "voiceover": "Stop chasing every opinion. Start deciding with clarity.",
+      "text_on_screen": "Start deciding."
+    }
+  ]
+}
